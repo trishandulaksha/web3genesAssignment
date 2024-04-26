@@ -1,6 +1,7 @@
 import React from "react";
 import web3geneslogo from "../../assets/images/web3genes_logo.webp";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminPage() {
   return (
@@ -15,9 +16,11 @@ function AdminPage() {
               <div className="mr-12">
                 <ul className="flex ">
                   <li className="mr-8 text-white cursor-pointer">
-                    User Onboarding
+                    <Link to="/userunboardingpage">User Onboarding</Link>
                   </li>
-                  <li className="mr-8 text-white cursor-pointer">User List</li>
+                  <li className="mr-8 text-white cursor-pointer">
+                    <Link to="/userlistpage">User List</Link>
+                  </li>
                 </ul>
               </div>
 

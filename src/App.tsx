@@ -1,14 +1,12 @@
 import React from "react";
 
 import "./App.css";
-import LoginPage from "./pages/loginPage/loginPage";
-import AdminPage from "./pages/adminPage/adminPage";
+import MainRoutes from "./routes/mainroutes";
 
 function App() {
   return (
     <>
-      {/* <LoginPage /> */}
-      <AdminPage />
+      <MainRoutes />
     </>
   );
 }
