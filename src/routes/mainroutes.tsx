@@ -9,6 +9,7 @@ import AdminPage from "../pages/adminPage/adminPage";
 import UserOnboardingPage from "../pages/adminPage/adminPanel/userOnboardingPage";
 import UserListPage from "../pages/adminPage/adminPanel/userListPage";
 import NotFound from "../pages/401/NotFound";
+import PrivateRoute from "./userProtector";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/adminpanel",
-    element: <AdminPage />,
+    element: <PrivateRoute />,
     children: [
       {
         path: "useronboardingpage",

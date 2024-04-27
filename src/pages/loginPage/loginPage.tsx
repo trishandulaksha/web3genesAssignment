@@ -26,8 +26,9 @@ function LoginPage() {
         user: { type },
       } = data;
       if (token && type === "ADMIN" && status === "ACTIVE") {
+        localStorage.setItem("web3token", token);
         setTimeout(() => {
-          navigate("adminpanel");
+          navigate("adminpanel/useronboardingpage");
           setSuccess(true);
         }, 2000);
       }
@@ -41,7 +42,9 @@ function LoginPage() {
   return (
     <>
       <div className="mt-3 mx-52">
-        {success && <Notification message="User Login successfully!" />}
+        {success && !dbResponse.data.error && !dbResponse.error && (
+          <Notification message="User Login successfully!" />
+        )}
       </div>
       <div className="flex items-center justify-center h-screen ">
         <div className="border border-blue-600 w-3/4  sm:w-2/5 border-t-[20px] p-4 lg:p-14 md:p-6 sm:p-5 shadow-lg">

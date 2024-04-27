@@ -1,23 +1,25 @@
-import React from "react";
-import NotFound from "../pages/401/NotFound";
-import AdminPage from "../pages/adminPage/adminPage";
+import { Navigate, Outlet } from "react-router-dom";
+import NavBar from "../Component/HeaderComponent/NavBar";
+import { useState } from "react";
 
-export const isNotAdmin = (dbResponse: any) => {
-  const {
-    token,
-    status,
-    user: { type },
-  } = dbResponse;
+const PrivateRoute = () => {
+  const token = localStorage.getItem("web3token");
+  const [currentPage, setCurrentPage] = useState<string>("useronboardingpage");
 
   if (!token) {
-    return true;
+    return <Navigate to="/" replace />;
   }
-  if (status === type && type === "ADMIN") {
-    return true;
-  }
-};
-const UserProtector: React.FC<{ dbResponse: any }> = ({ dbResponse }) => {
-  return isNotAdmin(dbResponse) ? <NotFound /> : <AdminPage />;
+
+  return (
+    <div>
+      <div className="z-[30] fixed w-full">
+        <NavBar setCurrentPage={setCurrentPage} />
+      </div>
+      <div className="z-[10] ">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
 
-export default UserProtector;
+export default PrivateRoute;
