@@ -2,14 +2,40 @@ import React, { useState } from "react";
 import InputFieldUnit from "../../Component/InputFieldComponent/InputFieldUnit";
 import { useNavigate } from "react-router-dom";
 
+import { loginDataHandler } from "../../Utils/InputDataHandler/loginDataHandler";
+
+import Notification from "../../Component/Notification/Notification";
+
 function LoginPage() {
   const navigate = useNavigate();
   const [canSubmit, setCanSubmit] = useState<boolean>(false);
+  const [dbResponse, setDbResponse] = useState<{ data: any; error: any }>({
+    data: null,
+    error: null,
+  });
+  const [success, setSuccess] = useState<boolean>(false);
+
+  // isNotAdmin(dbResponse);
+  console.log("DB response", dbResponse);
+  const handleUserNavigation = () => {
+    const { data } = dbResponse;
+    if (!dbResponse.error && data && data.user) {
+      const {
+        token,
+        status,
+        user: { type },
+      } = data;
+      if (token && type === "ADMIN" && status === "ACTIVE") {
+        navigate("adminpanel");
+      }
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen ">
       <div className="border border-blue-600 w-3/4  sm:w-2/5 border-t-[20px] p-4 lg:p-14 md:p-6 sm:p-5 shadow-lg">
         {/* Header tags */}
-
+        {success && <Notification message="User Login successfully!" />}
         <div className="w-full">
           <div className="mb-8 font-sans text-center text-gray-600 ">
             <h1 className="text-3xl font-bold ">Login</h1>
@@ -22,30 +48,47 @@ function LoginPage() {
 
           {/* Form componenet */}
           <div className="pb-6 ">
+            <div>
+              {dbResponse && dbResponse.data && dbResponse.data.error ? (
+                <p className="text-red-700">
+                  {dbResponse.data.error || dbResponse.error}
+                </p>
+              ) : null}
+            </div>
             <div className="">
-              <form action="">
+              <form
+                action=""
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  loginDataHandler(e, setDbResponse, setSuccess);
+                  handleUserNavigation();
+                }}
+              >
                 <InputFieldUnit
                   setCanSubmit={setCanSubmit}
                   type="text"
                   placeholder="Email"
                   errMsgBase="email"
+                  name="email"
                 />
                 <InputFieldUnit
                   setCanSubmit={setCanSubmit}
                   type="password"
                   placeholder="Password"
                   errMsgBase="password"
+                  name="password"
                 />
                 <p className="text-right">Forget Password</p>
 
                 <div className="mt-7 ">
                   <div className="h-8">
-                    <input
-                      type="button"
-                      value="Login"
+                    <button
+                      type="submit"
                       className="w-full py-2 text-white transition duration-300 ease-in-out bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-400 hover:mt-1 "
-                      onClick={() => navigate("adminpanel")}
-                    />
+                      disabled={!canSubmit}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </form>

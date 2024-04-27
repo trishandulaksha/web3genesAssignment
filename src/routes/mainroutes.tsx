@@ -8,8 +8,9 @@ import LoginPage from "../pages/loginPage/loginPage";
 import AdminPage from "../pages/adminPage/adminPage";
 import UserOnboardingPage from "../pages/adminPage/adminPanel/userOnboardingPage";
 import UserListPage from "../pages/adminPage/adminPanel/userListPage";
+import NotFound from "../pages/401/NotFound";
 
-const routes: RouteObject[] = [
+const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
@@ -17,18 +18,17 @@ const routes: RouteObject[] = [
   {
     path: "/adminpanel",
     element: <AdminPage />,
+    children: [
+      {
+        path: "useronboardingpage",
+        element: <UserOnboardingPage />,
+      },
+      { path: "userlistpage", element: <UserListPage /> },
+    ],
   },
-  {
-    path: "/userunboardingpage",
-    element: <UserOnboardingPage />,
-  },
-  {
-    path: "/userlistpage",
-    element: <UserListPage />,
-  },
-];
+  { path: "*", element: <NotFound /> },
+]);
 
-const router = createBrowserRouter(routes);
 function MainRoutes() {
   return <RouterProvider router={router} />;
 }

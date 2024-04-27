@@ -15,7 +15,7 @@ export const userNameValdiate = (
       setErr(true);
       setCanSubmit(false);
       tempErrMsgArray.push(
-        "User name can contain only letters and underscores "
+        "User name can contain only letters and underscores and should be between 3 and 100 characters"
       );
     } else {
       setErr(false);
@@ -54,19 +54,8 @@ export const validateDOB = (
     setErr(true);
     setCanSubmit(false);
     tempErrMsgArray.push("Date of birth is required");
-  } else {
-    const dobRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dobRegex.test(data)) {
-      setErr(true);
-      setCanSubmit(false);
-      tempErrMsgArray.push(
-        "Please enter a valid date of birth in YYYY-MM-DD format"
-      );
-    } else {
-      setErr(false);
-      setCanSubmit(true);
-    }
   }
+
   return setErrMsg(tempErrMsgArray);
 };
 
