@@ -1,9 +1,10 @@
-import React from "react";
-import InputFieldUnit from "../../Component/InputFieldUnit";
+import React, { useState } from "react";
+import InputFieldUnit from "../../Component/InputFieldComponent/InputFieldUnit";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [canSubmit, setCanSubmit] = useState<boolean>(false);
   return (
     <div className="flex items-center justify-center h-screen ">
       <div className="border border-blue-600 w-3/4  sm:w-2/5 border-t-[20px] p-4 lg:p-14 md:p-6 sm:p-5 shadow-lg">
@@ -23,8 +24,18 @@ function LoginPage() {
           <div className="pb-6 ">
             <div className="">
               <form action="">
-                <InputFieldUnit type="text" placeholder="Email" />
-                <InputFieldUnit type="password" placeholder="Password" />
+                <InputFieldUnit
+                  setCanSubmit={setCanSubmit}
+                  type="text"
+                  placeholder="Email"
+                  errMsgBase="email"
+                />
+                <InputFieldUnit
+                  setCanSubmit={setCanSubmit}
+                  type="password"
+                  placeholder="Password"
+                  errMsgBase="password"
+                />
                 <p className="text-right">Forget Password</p>
 
                 <div className="mt-7 ">

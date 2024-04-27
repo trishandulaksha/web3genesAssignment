@@ -1,7 +1,8 @@
-import React from "react";
-import InputFieldUnit from "../../../Component/InputFieldUnit";
+import React, { useState } from "react";
+import InputFieldUnit from "../../../Component/InputFieldComponent/InputFieldUnit";
 
 function UserOnboardingPage() {
+  const [canSubmit, setCanSubmit] = useState<boolean>(false);
   return (
     <div>
       <div>
@@ -15,14 +16,29 @@ function UserOnboardingPage() {
               <p>Basic Details</p>
               <div className="grid grid-cols-3">
                 <div>
-                  <InputFieldUnit type="text" placeholder="First Name" />
+                  <InputFieldUnit
+                    setCanSubmit={setCanSubmit}
+                    type="text"
+                    placeholder="First Name"
+                    errMsgBase="firstname"
+                  />
                 </div>
 
                 <div>
-                  <InputFieldUnit type="text" placeholder="Last Name" />
+                  <InputFieldUnit
+                    setCanSubmit={setCanSubmit}
+                    type="text"
+                    placeholder="Last Name"
+                    errMsgBase="lastname"
+                  />
                 </div>
                 <div>
-                  <InputFieldUnit type="date" placeholder="Last Name" />
+                  <InputFieldUnit
+                    setCanSubmit={setCanSubmit}
+                    type="date"
+                    placeholder=""
+                    errMsgBase="DOB"
+                  />
                 </div>
                 <div>
                   <input
@@ -42,10 +58,20 @@ function UserOnboardingPage() {
               <p>Basic Details</p>
               <div className="grid grid-cols-3">
                 <div>
-                  <InputFieldUnit type="text" placeholder="Mobile Number" />
+                  <InputFieldUnit
+                    setCanSubmit={setCanSubmit}
+                    type="text"
+                    placeholder="Mobile Number"
+                    errMsgBase="mobilenumber"
+                  />
                 </div>
                 <div>
-                  <InputFieldUnit type="text" placeholder="Email" />
+                  <InputFieldUnit
+                    setCanSubmit={setCanSubmit}
+                    type="text"
+                    placeholder="Email"
+                    errMsgBase="email"
+                  />
                 </div>
               </div>
             </div>
